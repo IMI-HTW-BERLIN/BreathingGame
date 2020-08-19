@@ -9,6 +9,8 @@ namespace Managers
         [Header("Breathing Settings")] [SerializeField]
         private float deltaDifferenceForBreathing;
 
+        [SerializeField] private float minDeltaForBreathingChange;
+
         public bool IsHoldingBreath
         {
             get => _isHoldingBreath;
@@ -20,17 +22,6 @@ namespace Managers
             }
         }
 
-        public bool IsBreathingIn
-        {
-            get => _isBreathingIn;
-            private set
-            {
-                if (_isBreathingIn != value)
-                    OnBreathingChange?.Invoke(value);
-                _isBreathingIn = value;
-            }
-        }
-
         public LimitedList<float> AbsDeltas { get; } = new LimitedList<float>(4);
 
         public event TemperatureReading OnTemperatureRead;
@@ -39,7 +30,7 @@ namespace Managers
 
         public delegate void TemperatureReading(float temperature);
 
-        public delegate void BreathingChange(bool isBreathingIn);
+        public delegate void BreathingChange(bool isBreathingIn, float absDelta);
 
         public delegate void HoldingBreath(bool isHoldingBreath);
 
@@ -60,14 +51,21 @@ namespace Managers
         private void CheckBreathingType()
         {
             float delta = _currentTemperature - _lastTemperature;
+            float absDelta = Mathf.Abs(delta);
+            AbsDeltas.Add(absDelta);
+
             // Check if delta is negative -> breathing in due to cooler air.
-            IsBreathingIn = delta < 0;
-            AbsDeltas.Add(Mathf.Abs(delta));
+            bool breathingIn = delta < 0;
+            if (_isBreathingIn != breathingIn && absDelta >= minDeltaForBreathingChange)
+            {
+                _isBreathingIn = breathingIn;
+                OnBreathingChange?.Invoke(breathingIn, absDelta);
+            }
+
 
             if (!AbsDeltas.IsFull)
                 return;
             // If temperature is not changing much, no breathing in or out.
-            // IsHoldingBreath = AbsDeltas.AllSmallerThan(deltaDifferenceForBreathing);
             IsHoldingBreath = AbsDeltas.Average() < deltaDifferenceForBreathing;
         }
     }

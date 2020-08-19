@@ -21,11 +21,13 @@ namespace Arduino
             _serialPort = new SerialPort(portName, baudRate);
         }
 
-        private void Start()
+        private void OnEnable()
         {
             _serialPort.Open();
             StartCoroutine(ReadNextLine());
         }
+
+        private void OnDisable() => _serialPort.Close();
 
         [SuppressMessage("ReSharper", "FunctionRecursiveOnAllPaths")]
         private IEnumerator ReadNextLine()

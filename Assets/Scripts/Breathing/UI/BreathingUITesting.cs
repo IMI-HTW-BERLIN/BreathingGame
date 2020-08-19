@@ -29,7 +29,7 @@ namespace Breathing.UI
             imgHoldingBreath.color = isHoldingBreath ? Color.black : Color.white;
         }
 
-        private void OnBreathingChange(bool isBreathingIn)
+        private void OnBreathingChange(bool isBreathingIn, float absDelta)
         {
             imgBreathingType.transform.localScale = isBreathingIn ? _normalScale : _flipHorizontal;
         }
