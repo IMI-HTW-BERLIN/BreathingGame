@@ -18,6 +18,8 @@ namespace Utils
             _autoRemove = autoRemove;
         }
 
+        public T this[int index] => _list[index];
+
         public bool Add(T element)
         {
             if (_list.Count == _capacity)
@@ -43,9 +45,9 @@ namespace Utils
 
         public dynamic Max() => _list.Max();
 
-        public bool AllGreaterThan(dynamic value) => _list.All(element => (dynamic)element > value);
-        
-        public bool AllSmallerThan(dynamic value) => _list.All(element => (dynamic)element < value);
+        public bool AllGreaterThan(dynamic value) => _list.All(element => (dynamic) element > value);
+
+        public bool AllSmallerThan(dynamic value) => _list.All(element => (dynamic) element < value);
 
         public bool Equals(List<T> otherList)
         {

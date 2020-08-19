@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
 namespace Graph
@@ -9,33 +9,30 @@ namespace Graph
         [SerializeField] private float max;
         [SerializeField] private float min;
         [SerializeField] private float spaceFactor;
-        [Space(10)]
-        [SerializeField] private List<Graph> graphs;
+        [Space(10)] [SerializeField] private Graph graph;
 
         private Camera _camera;
 
         private void Awake()
         {
             _camera = Camera.main;
-            foreach (Graph graph in graphs)
-            {
-                graph.lineRenderer.startColor = graph.graphColor;
-                graph.lineRenderer.endColor = graph.graphColor;
-            }
+
+            graph.lineRenderer.startColor = graph.graphColor;
+            graph.lineRenderer.endColor = graph.graphColor;
         }
 
-        public void AddNextPoint(int id, float yValue)
+        private void OnEnable() => BreathingManager.Instance.OnTemperatureRead += AddNextPoint;
+
+        private void OnDisable() => BreathingManager.Instance.OnTemperatureRead -= AddNextPoint;
+
+        private void AddNextPoint(float yValue)
         {
-            if(id >= graphs.Count)
-                return;
-            
-            Graph graph = graphs[id];
             float value = Mathf.Clamp01((yValue - min) / (max - min)) * Screen.height / 100f;
             graph.lineRenderer.positionCount = graph.PointIndex + 1;
             graph.lineRenderer.SetPosition(graph.PointIndex, new Vector3(graph.PointIndex * spaceFactor, value));
             graph.PointIndex++;
-            
-            if(_camera.transform.position.x < graph.PointIndex * spaceFactor - Screen.width / 100f * 0.75f)
+
+            if (_camera.transform.position.x < graph.PointIndex * spaceFactor - Screen.width / 100f * 0.75f)
                 _camera.transform.position += new Vector3(spaceFactor, 0);
         }
 

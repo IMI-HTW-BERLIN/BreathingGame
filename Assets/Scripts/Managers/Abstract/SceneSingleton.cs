@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Managers
+namespace Managers.Abstract
 {
     public abstract class SceneSingleton<T> : MonoBehaviour where T : class
     {

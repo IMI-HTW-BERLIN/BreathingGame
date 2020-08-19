@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using UnityEngine;
 using System.IO.Ports;
-using System.Text;
-using System.Threading.Tasks;
-using Breathing;
-using Graph;
-using Utils;
+using Managers;
+using UnityEngine;
 
 namespace Arduino
 {
@@ -40,6 +35,7 @@ namespace Arduino
             {
                 BreathingManager.Instance.AddTemperature(Convert.ToSingle(data));
             }
+
             yield return ReadNextLine();
         }
     }
