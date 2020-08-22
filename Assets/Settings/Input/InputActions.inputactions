@@ -1,5 +1,5 @@
 {
-  "name": "Input",
+  "name": "InputActions",
   "maps": [
     {
       "name": "PlayerControls",
@@ -12,17 +12,88 @@
           "expectedControlType": "Button",
           "processors": "",
           "interactions": ""
+        },
+        {
+          "name": "Movement",
+          "type": "Button",
+          "id": "d1349d2c-803a-4248-ab1f-c4faaefa5424",
+          "expectedControlType": "Button",
+          "processors": "",
+          "interactions": ""
+        },
+        {
+          "name": "Jump",
+          "type": "Button",
+          "id": "54fac7d9-72a8-492a-9bbb-df3dc61362df",
+          "expectedControlType": "Button",
+          "processors": "",
+          "interactions": ""
         }
       ],
       "bindings": [
         {
           "name": "",
           "id": "f5a8fe3d-16f3-4ac5-ad92-f609fb570396",
-          "path": "<Mouse>/leftButton",
+          "path": "<Mouse>/rightButton",
           "interactions": "",
           "processors": "",
           "groups": "Keyboard",
           "action": "Fire",
+          "isComposite": false,
+          "isPartOfComposite": false
+        },
+        {
+          "name": "AD",
+          "id": "ce3408b8-80c8-4f89-a372-d466a1ab5328",
+          "path": "1DAxis",
+          "interactions": "",
+          "processors": "",
+          "groups": "",
+          "action": "Movement",
+          "isComposite": true,
+          "isPartOfComposite": false
+        },
+        {
+          "name": "negative",
+          "id": "aaf9cae2-b6f7-4a19-a763-06f73d2360e0",
+          "path": "<Keyboard>/a",
+          "interactions": "",
+          "processors": "",
+          "groups": "Keyboard",
+          "action": "Movement",
+          "isComposite": false,
+          "isPartOfComposite": true
+        },
+        {
+          "name": "positive",
+          "id": "8bcf04c5-bf13-407f-8f87-af93e1c73360",
+          "path": "<Keyboard>/d",
+          "interactions": "",
+          "processors": "",
+          "groups": "Keyboard",
+          "action": "Movement",
+          "isComposite": false,
+          "isPartOfComposite": true
+        },
+        {
+          "name": "",
+          "id": "7539fdcb-bdbd-4f5f-9bd2-d06af30e8493",
+          "path": "<Keyboard>/space",
+          "interactions": "",
+          "processors": "",
+          "groups": "Keyboard",
+          "action": "Jump",
+          "isComposite": false,
+          "isPartOfComposite": false
+        },
+        {
+          "name": "",
+          "id": "26f1b50e-2353-4b33-a611-73f8344962e7",
+          "path": "<Keyboard>/w",
+          "interactions": "",
+          "processors": "",
+          "groups": "Keyboard",
+          "action": "Jump",
           "isComposite": false,
           "isPartOfComposite": false
         }
