@@ -1,61 +1,49 @@
-﻿using Pathfinding;
+﻿using Managers;
+using PlayerBehaviour;
 using Settings;
 using UnityEngine;
+using Utils;
 
 namespace Enemies
 {
-    [RequireComponent(typeof(Seeker))]
+    [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(Rigidbody2D))]
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private EnemyUI enemyUI;
-        [SerializeField] private float triggerCooldown = 5f;
-        [Header("Movement")] [SerializeField] private float movementSpeed = 10f;
-        [SerializeField] private float nextWaypointDistance = 3f;
-        [SerializeField] private SpriteRenderer enemySprite;
+        [SerializeField] private EnemyMovement enemyMovement;
+
+        [Header("Awareness")] [SerializeField] private float triggerCooldown;
+
+        [SerializeField] private float awarenessTime;
+        [SerializeField] private float noticedDistance;
+        [SerializeField] private LayerMask playerMask;
+
+        [Header("Animation")] [SerializeField] private Animator animator;
 
         private Rigidbody2D _rb;
-
-        // Pathfinding
-        private Seeker _seeker;
-        private Path _path;
-        private int _currentPathNode;
-
         private float _cooldownTime;
+        private bool _isAttacking;
+        private bool _hasKilled;
 
-        private void Awake()
+        private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int Attack = Animator.StringToHash("Attack");
+
+
+        protected virtual void Awake() => _rb = GetComponent<Rigidbody2D>();
+
+        protected virtual void Update()
         {
-            _seeker = GetComponent<Seeker>();
-            _rb = GetComponent<Rigidbody2D>();
+            animator.SetFloat(Speed, Mathf.Abs(_rb.velocity.x));
+            LookForPlayer();
+            if (_isAttacking && !_hasKilled && enemyMovement.ReachedEndOfPath)
+                AttackPlayer();
         }
 
-        private void FixedUpdate()
-        {
-            if (_rb.velocity.x > 0.01f)
-                enemySprite.flipX = false;
-            else if (_rb.velocity.x < -0.01f)
-                enemySprite.flipX = true;
-
-            if (_path == null)
-                return;
-
-            if (_currentPathNode >= _path.vectorPath.Count)
-            {
-                _path = null;
-                return;
-            }
-
-            Vector2 direction = ((Vector2) _path.vectorPath[_currentPathNode] - _rb.position).normalized;
-            Vector2 force = direction * (movementSpeed * Time.deltaTime * _rb.mass);
-
-            _rb.AddForce(force);
-
-            float distance = Vector2.Distance(_rb.position, _path.vectorPath[_currentPathNode]);
-            if (distance < nextWaypointDistance)
-                _currentPathNode++;
-        }
-
-        private void OnParticleCollision(GameObject other)
+        /// <summary>
+        /// When a sound wave hits, move to the origin of it and show 'Awareness'.
+        /// </summary>
+        protected virtual void OnParticleCollision(GameObject other)
         {
             float time = Time.time;
             if (!other.CompareTag(Consts.Tags.TAG_PLAYER))
@@ -65,22 +53,58 @@ namespace Enemies
 
             _cooldownTime = time;
             enemyUI.ShowAwareness();
-
-            MoveToLocation(other.transform.position);
+            enemyMovement.PatrolCheckpoints = false;
+            StopAllCoroutines();
+            StartCoroutine(Coroutines.WaitForSeconds(awarenessTime, () =>
+            {
+                enemyUI.HideAwareness();
+                enemyMovement.PatrolCheckpoints = true;
+            }));
+            enemyMovement.MoveTo(GameManager.Instance.Player.GetLastParticlePosition());
         }
 
-        private void MoveToLocation(Vector2 position)
+        /// <summary>
+        /// Looks for the player by casting a ray. If hit and in reach -> <see cref="PlayerFound"/>.
+        /// </summary>
+        private void LookForPlayer()
         {
-            if (!_seeker.IsDone())
+            Player player = GameManager.Instance.Player;
+            Vector2 direction = player.transform.position - transform.position;
+
+            if (!Physics2D.Raycast(transform.position, direction, 1000f, playerMask))
                 return;
 
-            _seeker.StartPath(_rb.position, position, path =>
-            {
-                if (path.error)
-                    return;
-                _path = path;
-                _currentPathNode = 0;
-            });
+            if (!(Vector2.Distance(player.transform.position, transform.position) <= noticedDistance))
+                return;
+
+            PlayerFound(player);
+        }
+
+        /// <summary>
+        /// Disables player movement and moves to the player to attack him.
+        /// </summary>
+        /// <param name="player">The player that was found (only for script reference)</param>
+        private void PlayerFound(Player player)
+        {
+            if (_isAttacking)
+                return;
+            _isAttacking = true;
+            enemyMovement.PatrolCheckpoints = false;
+            StopAllCoroutines();
+            enemyUI.ShowNoticed();
+            player.DisableMovement();
+            enemyMovement.MoveTo(player.transform.position);
+        }
+
+        /// <summary>
+        /// Starts the attack animation and kills the player.
+        /// </summary>
+        private void AttackPlayer()
+        {
+            enemyUI.HideAwareness();
+            animator.SetTrigger(Attack);
+            GameManager.Instance.Player.Kill();
+            _hasKilled = true;
         }
     }
 }
