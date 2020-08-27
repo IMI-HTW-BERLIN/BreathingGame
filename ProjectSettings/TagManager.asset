@@ -15,8 +15,8 @@ TagManager:
   - 
   - Obstacles
   - Player
-  - 
-  - 
+  - LevelObjects
+  - Enemy
   - 
   - 
   - 
@@ -50,9 +50,15 @@ TagManager:
   - name: Graph
     uniqueID: 1697986825
     locked: 0
+  - name: LevelObjects
+    uniqueID: 3396399165
+    locked: 0
   - name: Enemies
     uniqueID: 1635250555
     locked: 0
   - name: Player
     uniqueID: 2721427727
+    locked: 0
+  - name: VFX
+    uniqueID: 1147691085
     locked: 0

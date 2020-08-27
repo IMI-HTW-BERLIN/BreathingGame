@@ -16,21 +16,13 @@ public class @InputActions : IInputActionCollection, IDisposable
     ""name"": ""InputActions"",
     ""maps"": [
         {
-            ""name"": ""PlayerControls"",
-            ""id"": ""487d6ac7-1f07-4571-b17c-920f108197ef"",
+            ""name"": ""Movement"",
+            ""id"": ""cdf0cddd-98df-473b-8ef7-9c65ffb9a7c4"",
             ""actions"": [
                 {
-                    ""name"": ""Fire"",
+                    ""name"": ""Move"",
                     ""type"": ""Button"",
-                    ""id"": ""1d40983a-7d4f-4b65-99a4-f653c34f7c53"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Movement"",
-                    ""type"": ""Button"",
-                    ""id"": ""d1349d2c-803a-4248-ab1f-c4faaefa5424"",
+                    ""id"": ""74b68934-dd54-4c19-849d-e5c3ed7adbe8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -38,7 +30,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""54fac7d9-72a8-492a-9bbb-df3dc61362df"",
+                    ""id"": ""d36eb582-5e9b-4142-bc0e-19720c5f4e65"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -47,51 +39,7 @@ public class @InputActions : IInputActionCollection, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""f5a8fe3d-16f3-4ac5-ad92-f609fb570396"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""AD"",
-                    ""id"": ""ce3408b8-80c8-4f89-a372-d466a1ab5328"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""aaf9cae2-b6f7-4a19-a763-06f73d2360e0"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""8bcf04c5-bf13-407f-8f87-af93e1c73360"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7539fdcb-bdbd-4f5f-9bd2-d06af30e8493"",
+                    ""id"": ""01e06d3c-de95-4f3c-8ebe-8f6d3d1e4406"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -102,12 +50,91 @@ public class @InputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""26f1b50e-2353-4b33-a611-73f8344962e7"",
+                    ""id"": ""fbbfc0d2-c460-48cc-9516-c3dfe3c966f5"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""AD"",
+                    ""id"": ""fab915d4-752f-47c3-943d-beca00c1edb3"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""205cb556-7f3b-4982-9941-e9791856aa32"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""a0745764-4b87-4fab-8e81-d82b41189bb6"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""Interaction"",
+            ""id"": ""02d40f51-474f-4327-b588-3e6859ad0e66"",
+            ""actions"": [
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""fbd53d7b-94c2-44c0-b548-fcd41ba04791"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e56c6af-845c-491c-bdff-f109706e207a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4bb88363-28a5-4bf1-aad7-4dbc340ae51b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38457b6b-1544-4bff-a214-cc49203821db"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -133,11 +160,14 @@ public class @InputActions : IInputActionCollection, IDisposable
         }
     ]
 }");
-        // PlayerControls
-        m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
-        m_PlayerControls_Fire = m_PlayerControls.FindAction("Fire", throwIfNotFound: true);
-        m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
-        m_PlayerControls_Jump = m_PlayerControls.FindAction("Jump", throwIfNotFound: true);
+        // Movement
+        m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
+        m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
+        m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
+        // Interaction
+        m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
+        m_Interaction_Interact = m_Interaction.FindAction("Interact", throwIfNotFound: true);
+        m_Interaction_Fire = m_Interaction.FindAction("Fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -184,29 +214,27 @@ public class @InputActions : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // PlayerControls
-    private readonly InputActionMap m_PlayerControls;
-    private IPlayerControlsActions m_PlayerControlsActionsCallbackInterface;
-    private readonly InputAction m_PlayerControls_Fire;
-    private readonly InputAction m_PlayerControls_Movement;
-    private readonly InputAction m_PlayerControls_Jump;
+    // Movement
+    private readonly InputActionMap m_Movement;
+    private IMovementActions m_MovementActionsCallbackInterface;
+    private readonly InputAction m_Movement_Move;
+    private readonly InputAction m_Movement_Jump;
 
-    public struct PlayerControlsActions
+    public struct MovementActions
     {
         private @InputActions m_Wrapper;
 
-        public PlayerControlsActions(@InputActions wrapper)
+        public MovementActions(@InputActions wrapper)
         {
             m_Wrapper = wrapper;
         }
 
-        public InputAction @Fire => m_Wrapper.m_PlayerControls_Fire;
-        public InputAction @Movement => m_Wrapper.m_PlayerControls_Movement;
-        public InputAction @Jump => m_Wrapper.m_PlayerControls_Jump;
+        public InputAction @Move => m_Wrapper.m_Movement_Move;
+        public InputAction @Jump => m_Wrapper.m_Movement_Jump;
 
         public InputActionMap Get()
         {
-            return m_Wrapper.m_PlayerControls;
+            return m_Wrapper.m_Movement;
         }
 
         public void Enable()
@@ -221,35 +249,29 @@ public class @InputActions : IInputActionCollection, IDisposable
 
         public bool enabled => Get().enabled;
 
-        public static implicit operator InputActionMap(PlayerControlsActions set)
+        public static implicit operator InputActionMap(MovementActions set)
         {
             return set.Get();
         }
 
-        public void SetCallbacks(IPlayerControlsActions instance)
+        public void SetCallbacks(IMovementActions instance)
         {
-            if (m_Wrapper.m_PlayerControlsActionsCallbackInterface != null)
+            if (m_Wrapper.m_MovementActionsCallbackInterface != null)
             {
-                @Fire.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnFire;
-                @Fire.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnFire;
-                @Fire.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnFire;
-                @Movement.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
-                @Jump.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
+                @Move.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnMove;
+                @Jump.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnJump;
             }
 
-            m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
+            m_Wrapper.m_MovementActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Fire.started += instance.OnFire;
-                @Fire.performed += instance.OnFire;
-                @Fire.canceled += instance.OnFire;
-                @Movement.started += instance.OnMovement;
-                @Movement.performed += instance.OnMovement;
-                @Movement.canceled += instance.OnMovement;
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
@@ -257,7 +279,74 @@ public class @InputActions : IInputActionCollection, IDisposable
         }
     }
 
-    public PlayerControlsActions @PlayerControls => new PlayerControlsActions(this);
+    public MovementActions @Movement => new MovementActions(this);
+
+    // Interaction
+    private readonly InputActionMap m_Interaction;
+    private IInteractionActions m_InteractionActionsCallbackInterface;
+    private readonly InputAction m_Interaction_Interact;
+    private readonly InputAction m_Interaction_Fire;
+
+    public struct InteractionActions
+    {
+        private @InputActions m_Wrapper;
+
+        public InteractionActions(@InputActions wrapper)
+        {
+            m_Wrapper = wrapper;
+        }
+
+        public InputAction @Interact => m_Wrapper.m_Interaction_Interact;
+        public InputAction @Fire => m_Wrapper.m_Interaction_Fire;
+
+        public InputActionMap Get()
+        {
+            return m_Wrapper.m_Interaction;
+        }
+
+        public void Enable()
+        {
+            Get().Enable();
+        }
+
+        public void Disable()
+        {
+            Get().Disable();
+        }
+
+        public bool enabled => Get().enabled;
+
+        public static implicit operator InputActionMap(InteractionActions set)
+        {
+            return set.Get();
+        }
+
+        public void SetCallbacks(IInteractionActions instance)
+        {
+            if (m_Wrapper.m_InteractionActionsCallbackInterface != null)
+            {
+                @Interact.started -= m_Wrapper.m_InteractionActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_InteractionActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_InteractionActionsCallbackInterface.OnInteract;
+                @Fire.started -= m_Wrapper.m_InteractionActionsCallbackInterface.OnFire;
+                @Fire.performed -= m_Wrapper.m_InteractionActionsCallbackInterface.OnFire;
+                @Fire.canceled -= m_Wrapper.m_InteractionActionsCallbackInterface.OnFire;
+            }
+
+            m_Wrapper.m_InteractionActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
+            }
+        }
+    }
+
+    public InteractionActions @Interaction => new InteractionActions(this);
     private int m_KeyboardSchemeIndex = -1;
 
     public InputControlScheme KeyboardScheme
@@ -269,10 +358,15 @@ public class @InputActions : IInputActionCollection, IDisposable
         }
     }
 
-    public interface IPlayerControlsActions
+    public interface IMovementActions
     {
-        void OnFire(InputAction.CallbackContext context);
-        void OnMovement(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+    }
+
+    public interface IInteractionActions
+    {
+        void OnInteract(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }

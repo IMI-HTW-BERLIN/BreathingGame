@@ -1,5 +1,77 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &719691623181030808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8619361316009671591}
+  - component: {fileID: 8660909839783676503}
+  m_Layer: 11
+  m_Name: SwordGlow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8619361316009671591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719691623181030808}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.19999981, y: 0.05000019, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7637390208198751904}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8660909839783676503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719691623181030808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.693
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 2
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 7bf17761
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 2
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
 --- !u!1 &7637390208198751934
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,7 +87,7 @@ GameObject:
   - component: {fileID: 7637390208198751906}
   - component: {fileID: 7637390208198751907}
   - component: {fileID: 7637390208198751911}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Warrior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,6 +106,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7637390208732716994}
+  - {fileID: 8619361316009671591}
+  - {fileID: 7637390209191017997}
   - {fileID: 7637390209496818651}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -83,9 +157,9 @@ MonoBehaviour:
   triggerCooldown: 2
   awarenessTime: 8
   noticedDistance: 2
-  playerMask:
+  rayMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
   animator: {fileID: 7637390208732717020}
 --- !u!114 &7637390208198751933
 MonoBehaviour:
@@ -105,7 +179,7 @@ MonoBehaviour:
   canMoveVertical: 0
   movementData:
   - waitTime: 4
-    endPosition: {x: -2.5, y: -4.4, z: 0}
+    endPosition: {x: 22, y: -3.4, z: 0}
   - waitTime: 5
     endPosition: {x: 5.5, y: -4.4, z: 0}
 --- !u!50 &7637390208198751906
@@ -183,7 +257,7 @@ GameObject:
   - component: {fileID: 7637390208732716995}
   - component: {fileID: 7637390208732717020}
   - component: {fileID: 7637390208732716993}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Warrior_Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,8 +274,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7637390209191017997}
+  m_Children: []
   m_Father: {fileID: 7637390208198751904}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -243,7 +316,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1635250555
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7384290322352760091, guid: 8fea01e2a8997d84eb1878950ab9c4c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -359,8 +432,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1635250555
-  m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: f9a3b812c99379243b7526cf0ec51a9c, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -382,8 +455,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7637390209191017997}
   - component: {fileID: 7637390209191017996}
-  m_Layer: 0
-  m_Name: EmissionLight
+  m_Layer: 11
+  m_Name: SwordEmission
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -397,11 +470,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7637390209191017998}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0.0500001, z: 0}
+  m_LocalPosition: {x: 0.19999981, y: 0.05000019, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 7637390208732716994}
-  m_RootOrder: 0
+  m_Father: {fileID: 7637390208198751904}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7637390209191017996
 MonoBehaviour:
@@ -417,11 +490,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.693
-  m_Color: {r: 0.25943398, g: 1, b: 0.26524243, a: 1}
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 0, g: 1, b: 0.016851187, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 8371bf4073821dd500000000093935657bf177610fb135a2
+  m_ApplyToSortingLayers: 8371bf4073821dd500000000093935650fb135a23df070ca
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -474,7 +547,7 @@ Transform:
   m_Children:
   - {fileID: 7637390209709385540}
   m_Father: {fileID: 7637390208198751904}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7637390209496818644
 MonoBehaviour:
@@ -562,7 +635,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1635250555
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0231e74da0a3aff4ca2f430297bf259e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

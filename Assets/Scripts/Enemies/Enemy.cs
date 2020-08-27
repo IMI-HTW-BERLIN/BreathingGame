@@ -17,7 +17,7 @@ namespace Enemies
 
         [SerializeField] private float awarenessTime;
         [SerializeField] private float noticedDistance;
-        [SerializeField] private LayerMask playerMask;
+        [SerializeField] private LayerMask rayMask;
 
         [Header("Animation")] [SerializeField] private Animator animator;
 
@@ -71,7 +71,8 @@ namespace Enemies
             Player player = GameManager.Instance.Player;
             Vector2 direction = player.transform.position - transform.position;
 
-            if (!Physics2D.Raycast(transform.position, direction, 1000f, playerMask))
+            if (!Physics2D.Raycast(transform.position, direction, 1000f, rayMask).collider
+                .CompareTag(Consts.Tags.TAG_PLAYER))
                 return;
 
             if (!(Vector2.Distance(player.transform.position, transform.position) <= noticedDistance))
@@ -86,7 +87,7 @@ namespace Enemies
         /// <param name="player">The player that was found (only for script reference)</param>
         private void PlayerFound(Player player)
         {
-            if (_isAttacking)
+            if (_isAttacking || player.IsHidden)
                 return;
             _isAttacking = true;
             enemyMovement.PatrolCheckpoints = false;

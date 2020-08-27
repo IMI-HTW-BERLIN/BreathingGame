@@ -19,5 +19,7 @@ namespace Utils
         /// </summary>
         /// <returns>The task of reading a string from the BinaryReader's stream.</returns>
         public static async Task<string> ReadStringAsync(this BinaryReader reader) => await Task.Run(reader.ReadString);
+
+        public static float Map01To(this float value, float min, float max) => value * (max - min) + min;
     }
 }

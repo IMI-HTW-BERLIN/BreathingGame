@@ -3921,7 +3921,7 @@ ParticleSystem:
     radiusScale: 0.2
     collidesWith:
       serializedVersion: 2
-      m_Bits: 311
+      m_Bits: 2304
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -4937,9 +4937,11 @@ MonoBehaviour:
     m_Bits: 256
   groundCheckDistance: 0.2
   animator: {fileID: 44382561064951872}
-  playerSprite: {fileID: 3920719509699243406}
+  playerGfx: {fileID: 6992115767549533880}
   psSoundWaveRing: {fileID: 4514587612480192983}
   psLifetimeFactor: 10
+  playerLayer: Player
+  enemyLayer: Enemy
 --- !u!50 &2572909224951030094
 Rigidbody2D:
   serializedVersion: 4
@@ -5014,7 +5016,7 @@ GameObject:
   - component: {fileID: 2257996178796128753}
   m_Layer: 9
   m_Name: GroundCheck
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5162,7 +5164,7 @@ GameObject:
   - component: {fileID: 3066526558451106335}
   m_Layer: 9
   m_Name: Player_Graphics
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5219,7 +5221,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1573539569
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7384290322352760091, guid: bd34851926ec1a44c9e88dad8e803777, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5265,3 +5267,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbodyForMovement: {fileID: 2572909224951030094}
   spriteRenderer: {fileID: 3920719509699243406}
+  flipGameObjectInstead: 0

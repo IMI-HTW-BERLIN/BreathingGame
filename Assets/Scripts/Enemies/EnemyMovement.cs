@@ -27,7 +27,7 @@ namespace Enemies
                     return;
                 _reachedEndOfPath = value;
                 if (value && PatrolCheckpoints)
-                    StartCoroutine(MoveToNextCheckpoint(movementData[_currentCheckpoint % (movementData.Count)]));
+                    StartCoroutine(MoveToNextCheckpoint(movementData[_currentCheckpoint % movementData.Count]));
             }
         }
 
@@ -84,7 +84,7 @@ namespace Enemies
             if (canMoveVertical)
                 newVelocity = direction * (movementSpeed * Time.deltaTime);
             else
-                newVelocity = new Vector2(direction.x * movementSpeed * Time.deltaTime, _rb.velocity.y);
+                newVelocity = new Vector2(Math.Sign(direction.x) * movementSpeed * Time.deltaTime, _rb.velocity.y);
 
             _rb.velocity = newVelocity;
 
@@ -92,7 +92,7 @@ namespace Enemies
                 _currentWaypoint++;
         }
 
-        public void MoveTo(Vector2 position)
+        public void MoveTo(Vector2 position, bool ignoreCanMoveVertical = false)
         {
             if (!_seeker.IsDone())
             {
@@ -100,7 +100,11 @@ namespace Enemies
                 _currentWaypoint = 0;
             }
 
-            Vector2 endPosition = canMoveVertical ? position : new Vector2(position.x, _rb.position.y);
+            Vector2 endPosition;
+            if (canMoveVertical || ignoreCanMoveVertical)
+                endPosition = position;
+            else
+                endPosition = new Vector2(position.x, _rb.position.y);
 
             _seeker.StartPath(Position, endPosition, path =>
             {
@@ -112,7 +116,7 @@ namespace Enemies
         private IEnumerator MoveToNextCheckpoint(MovementData data)
         {
             yield return new WaitForSeconds(data.waitTime);
-            MoveTo(data.endPosition);
+            MoveTo(data.endPosition, true);
             _currentCheckpoint++;
         }
 
