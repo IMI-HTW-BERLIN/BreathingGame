@@ -46,9 +46,8 @@ namespace Enemies
         protected virtual void OnParticleCollision(GameObject other)
         {
             float time = Time.time;
-            if (!other.CompareTag(Consts.Tags.TAG_PLAYER))
-                return;
-            if (time < _cooldownTime + triggerCooldown)
+            if (!other.CompareTag(Consts.Tags.TAG_PLAYER) || time < _cooldownTime + triggerCooldown || _isAttacking ||
+                _hasKilled)
                 return;
 
             _cooldownTime = time;

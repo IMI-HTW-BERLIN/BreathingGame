@@ -9,7 +9,8 @@
 
         public static class Scenes
         {
-            public const int LEVEL_1 = 0;
+            public const int MAIN_MENU = 0;
+            public const int LEVEL_1 = 1;
         }
     }
 }

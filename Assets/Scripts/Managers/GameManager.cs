@@ -11,8 +11,11 @@ namespace Managers
 {
     public class GameManager : Singleton<GameManager>
     {
-        [SerializeField] private Animator animator;
-        [SerializeField] private float showGameOverScreenDelay;
+        [SerializeField] private Animator gameOverAnimator;
+        [SerializeField] private float gameOverScreenDelayTime;
+
+        [SerializeField] private Animator sceneTransitionAnimator;
+        [SerializeField] private float sceneTransitionTime;
 
         public event Action OnAllCrystalsCollected;
 
@@ -27,24 +30,33 @@ namespace Managers
         }
 
         private Player _player;
-
         private List<Crystal> _crystalsToCollect = new List<Crystal>();
 
-        private static readonly int FadeIn = Animator.StringToHash("FadeIn");
-        private static readonly int FadeOut = Animator.StringToHash("FadeOut");
+        private static readonly int GameOverIn = Animator.StringToHash("GameOver_IN");
+        private static readonly int TransitionIn = Animator.StringToHash("Transition_IN");
 
-        private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
+        }
 
         private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
 
 
         public void ShowGameOver() =>
-            StartCoroutine(Coroutines.WaitForSeconds(showGameOverScreenDelay, () => animator.SetTrigger(FadeIn)));
+            StartCoroutine(Coroutines.WaitForSeconds(gameOverScreenDelayTime,
+                () =>
+                {
+                    gameOverAnimator.gameObject.SetActive(true);
+                    gameOverAnimator.SetTrigger(GameOverIn);
+                }));
 
         public void LoadScene(int sceneIndex)
         {
-            SceneManager.LoadScene(sceneIndex);
-            animator.SetTrigger(FadeOut);
+            sceneTransitionAnimator.SetTrigger(TransitionIn);
+            StartCoroutine(Coroutines.WaitForSeconds(sceneTransitionTime,
+                () => SceneManager.LoadScene(sceneIndex)));
         }
 
         public void CrystalCollected()
@@ -53,7 +65,16 @@ namespace Managers
                 OnAllCrystalsCollected?.Invoke();
         }
 
-        private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) =>
+        private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+        {
+            sceneTransitionAnimator.gameObject.SetActive(true);
             _crystalsToCollect = new List<Crystal>(FindObjectsOfType<Crystal>());
+        }
+
+        private void OnSceneUnloaded(Scene arg0)
+        {
+            gameOverAnimator.gameObject.SetActive(false);
+            sceneTransitionAnimator.gameObject.SetActive(false);
+        }
     }
 }
