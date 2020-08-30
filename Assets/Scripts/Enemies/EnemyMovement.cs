@@ -7,9 +7,9 @@ using UnityEngine;
 namespace Enemies
 {
     [RequireComponent(typeof(Seeker))]
-    [RequireComponent(typeof(Rigidbody2D))]
     public class EnemyMovement : MonoBehaviour
     {
+        [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Transform pathStart;
         [SerializeField] private float distanceToNextWaypoint;
 
@@ -49,7 +49,6 @@ namespace Enemies
 
         private Seeker _seeker;
         private Path _path;
-        private Rigidbody2D _rb;
 
         private int _currentWaypoint;
         private int _currentCheckpoint;
@@ -58,11 +57,7 @@ namespace Enemies
 
         private Vector2 Position => pathStart == null ? transform.position : pathStart.position;
 
-        private void Awake()
-        {
-            _seeker = GetComponent<Seeker>();
-            _rb = GetComponent<Rigidbody2D>();
-        }
+        private void Awake() => _seeker = GetComponent<Seeker>();
 
         private void Start() => StartCoroutine(MoveToNextCheckpoint(movementData[0]));
 
@@ -84,9 +79,9 @@ namespace Enemies
             if (canMoveVertical)
                 newVelocity = direction * (movementSpeed * Time.deltaTime);
             else
-                newVelocity = new Vector2(Math.Sign(direction.x) * movementSpeed * Time.deltaTime, _rb.velocity.y);
+                newVelocity = new Vector2(Math.Sign(direction.x) * movementSpeed * Time.deltaTime, rb.velocity.y);
 
-            _rb.velocity = newVelocity;
+            rb.velocity = newVelocity;
 
             if (Vector2.Distance(Position, _path.vectorPath[_currentWaypoint]) < distanceToNextWaypoint)
                 _currentWaypoint++;
@@ -104,7 +99,7 @@ namespace Enemies
             if (canMoveVertical || ignoreCanMoveVertical)
                 endPosition = position;
             else
-                endPosition = new Vector2(position.x, _rb.position.y);
+                endPosition = new Vector2(position.x, rb.position.y);
 
             _seeker.StartPath(Position, endPosition, path =>
             {
@@ -115,6 +110,8 @@ namespace Enemies
 
         private IEnumerator MoveToNextCheckpoint(MovementData data)
         {
+            if (data.turnAround)
+                transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
             yield return new WaitForSeconds(data.waitTime);
             MoveTo(data.endPosition, true);
             _currentCheckpoint++;
@@ -123,6 +120,7 @@ namespace Enemies
         [Serializable]
         private struct MovementData
         {
+            public bool turnAround;
             public float waitTime;
             public Vector3 endPosition;
         }

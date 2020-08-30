@@ -24,23 +24,24 @@ namespace PlayerBehaviour
 
         [Header("Particles")] [SerializeField] private ParticleSystem psSoundWaveRing;
         [SerializeField] private float psLifetimeFactor;
+        [SerializeField] private float debugSoundWaveRange;
 
         [Header("Hiding")] [SerializeField] private string playerLayer;
         [SerializeField] private string enemyLayer;
 
         public bool IsHidden { get; private set; }
+        public bool IsGrounded { get; private set; }
 
         private InputActions _inputActions;
         private Rigidbody2D _rb;
-        private bool _isGrounded;
         private Hideout _currentHideout;
 
         private readonly List<Vector2> _emissionPositions = new List<Vector2>();
 
-        private static readonly int Speed = Animator.StringToHash("Speed");
-        private static readonly int VerticalVelocity = Animator.StringToHash("VerticalVelocity");
-        private static readonly int IsGrounded = Animator.StringToHash("IsGrounded");
-        private static readonly int IsDead = Animator.StringToHash("IsDead");
+        private static readonly int AnimatorSpeed = Animator.StringToHash("Speed");
+        private static readonly int AnimatorVerticalVelocity = Animator.StringToHash("VerticalVelocity");
+        private static readonly int AnimatorIsGrounded = Animator.StringToHash("IsGrounded");
+        private static readonly int AnimatorIsDead = Animator.StringToHash("IsDead");
 
         private void Awake()
         {
@@ -70,8 +71,8 @@ namespace PlayerBehaviour
 
         private void FixedUpdate()
         {
-            _isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
-            animator.SetBool(IsGrounded, _isGrounded);
+            IsGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
+            animator.SetBool(AnimatorIsGrounded, IsGrounded);
 
             float movement = _inputActions.Movement.Move.ReadValue<float>();
 
@@ -79,8 +80,8 @@ namespace PlayerBehaviour
             _rb.velocity = new Vector2(velocity, _rb.velocity.y);
 
             // Animation
-            animator.SetFloat(Speed, Mathf.Abs(movement));
-            animator.SetFloat(VerticalVelocity, _rb.velocity.y);
+            animator.SetFloat(AnimatorSpeed, Mathf.Abs(movement));
+            animator.SetFloat(AnimatorVerticalVelocity, _rb.velocity.y);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -109,7 +110,7 @@ namespace PlayerBehaviour
         public void Kill()
         {
             _inputActions.Disable();
-            animator.SetBool(IsDead, true);
+            animator.SetBool(AnimatorIsDead, true);
             GameManager.Instance.ShowGameOver();
         }
 
@@ -135,12 +136,12 @@ namespace PlayerBehaviour
 
         private void OnJump(InputAction.CallbackContext obj)
         {
-            if (!_isGrounded)
+            if (!IsGrounded)
                 return;
             _rb.AddForce(Vector2.up * jumpForce);
         }
 
-        private void OnFire(InputAction.CallbackContext obj) => CreateSoundWave(0.3f);
+        private void OnFire(InputAction.CallbackContext obj) => CreateSoundWave(debugSoundWaveRange);
 
         private void OnInteract(InputAction.CallbackContext obj)
         {
