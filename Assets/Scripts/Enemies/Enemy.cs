@@ -63,7 +63,7 @@ namespace Enemies
             StartCoroutine(Coroutines.WaitForSeconds(awarenessTime, () =>
             {
                 enemyUI.HideAwareness();
-                enemyMovement.PatrolCheckpoints = true;
+                enemyMovement.ContinuePatrol();
             }));
             enemyMovement.MoveTo(GameManager.Instance.Player.GetLastParticlePosition());
         }

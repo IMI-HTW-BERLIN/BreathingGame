@@ -4940,7 +4940,7 @@ MonoBehaviour:
   playerGfx: {fileID: 6992115767549533880}
   killAnimationDelay: 0.2
   psSoundWaveRing: {fileID: 4514587612480192983}
-  psLifetimeFactor: 10
+  psLifetimeFactor: 4
   debugSoundWaveRange: 0.1
   playerLayer: Player
   enemyLayer: Enemy

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5075baa21ad4de4409a6c1a174b00b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deltaDifferenceForBreathing: 0.03
+  deltaDifferenceForBreathing: 0.025
   minDeltaForBreathingChange: 0.1
 --- !u!1001 &2738137379524648592
 PrefabInstance:

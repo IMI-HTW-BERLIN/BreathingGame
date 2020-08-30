@@ -118,6 +118,12 @@ namespace Enemies
             });
         }
 
+        public void ContinuePatrol()
+        {
+            _patrolCheckpoints = true;
+            StartCoroutine(MoveToNextCheckpoint(movementData[_currentCheckpoint % movementData.Count]));
+        }
+
         private IEnumerator MoveToNextCheckpoint(MovementData data)
         {
             if (data.turnAround)
