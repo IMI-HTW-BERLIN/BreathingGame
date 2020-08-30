@@ -45,9 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.6
+  m_FalloffIntensity: 0.75
   m_Color: {r: 0, g: 1, b: 0, a: 1}
-  m_Intensity: 12
+  m_Intensity: 3
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 8371bf4073821dd500000000093935657bf177610fb135a2
   m_LightCookieSprite: {fileID: 0}
@@ -254,8 +254,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7707326842006609661}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.2000003, y: -1.8000001, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7707326841171655237}
@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9d4d73bc314ac4808dfc3e6a92a50a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crystalSprite: {fileID: -8237667901665138252, guid: 664dc9fe0a979bb438601a83b75d45c0, type: 3}
 --- !u!95 &7707326842006609659
 Animator:
   serializedVersion: 3
@@ -284,7 +285,7 @@ Animator:
   m_GameObject: {fileID: 7707326842006609661}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 8c890453bc95d544395ff9a50d2b4015, type: 2}
+  m_Controller: {fileID: 9100000, guid: 91919404a25e5c845b346fe269d76760, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

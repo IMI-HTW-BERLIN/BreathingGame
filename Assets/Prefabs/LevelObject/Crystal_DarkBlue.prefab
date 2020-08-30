@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9d4d73bc314ac4808dfc3e6a92a50a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crystalSprite: {fileID: -5767893256424630917, guid: 664dc9fe0a979bb438601a83b75d45c0, type: 3}
 --- !u!95 &2316669144876457485
 Animator:
   serializedVersion: 3

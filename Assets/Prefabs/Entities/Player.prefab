@@ -4929,7 +4929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cfe4789f9f74cf1b6dac378d0e1715f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 300
+  movementSpeed: 250
   jumpForce: 650
   groundCheck: {fileID: 2257996178796128753}
   groundLayer:
@@ -4938,6 +4938,7 @@ MonoBehaviour:
   groundCheckDistance: 0.2
   animator: {fileID: 44382561064951872}
   playerGfx: {fileID: 6992115767549533880}
+  killAnimationDelay: 0.2
   psSoundWaveRing: {fileID: 4514587612480192983}
   psLifetimeFactor: 10
   debugSoundWaveRange: 0.1
@@ -5063,7 +5064,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6562568396217564208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4514587613045977901}
@@ -5268,4 +5269,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbodyForMovement: {fileID: 2572909224951030094}
   spriteRenderer: {fileID: 3920719509699243406}
-  flipGameObjectInstead: 0
+  flipGameObject: 0

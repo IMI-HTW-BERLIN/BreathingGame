@@ -7,7 +7,10 @@ namespace LevelObjects
     [RequireComponent(typeof(Collider2D))]
     public class Crystal : MonoBehaviour
     {
+        [SerializeField] private Sprite crystalSprite;
         public bool IsCollected { get; private set; }
+
+        public Sprite CrystalSprite => crystalSprite;
 
         private void OnTriggerEnter2D(Collider2D other)
         {

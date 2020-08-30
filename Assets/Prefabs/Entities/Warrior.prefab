@@ -81,7 +81,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7637390208198751904}
+  - component: {fileID: 6603780411442673052}
   - component: {fileID: 7637390208198751905}
+  - component: {fileID: 3308195641712531202}
   - component: {fileID: 1833816285702096811}
   - component: {fileID: 871469009336130931}
   - component: {fileID: 1524461848528966806}
@@ -109,6 +111,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6603780411442673052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7637390208198751934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!114 &7637390208198751905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,13 +151,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a3169903e74a9395e5e73d5bc1a03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 1833816285702096811}
   enemyUI: {fileID: 7637390209496818644}
-  enemyMovement: {fileID: 6535456318668905479}
+  enemyMovement: {fileID: 3308195641712531202}
   enemyAwareness: {fileID: 3199414731120863509}
   triggerCooldown: 2
   awarenessTime: 8
+  hiddenPlayerNoticeDistance: 1.5
   animator: {fileID: 7637390208732717020}
+--- !u!114 &3308195641712531202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7637390208198751934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac13c78ea6ff493391642513fa2be7ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathStart: {fileID: 9188464269458389347}
+  distanceToNextWaypoint: 1
+  graphicsToBeFlipped: {fileID: 1335133647117959586}
+  movementSpeed: 80
+  canMoveVertical: 0
+  pingPongPatrolRoute: 0
+  movementData:
+  - turnAround: 1
+    waitTime: 3
+    endPosition: {x: -0.32500002, y: -4.4, z: 0}
+  - turnAround: 1
+    waitTime: 3
+    endPosition: {x: 11.825, y: -4.4, z: 0}
 --- !u!50 &1833816285702096811
 Rigidbody2D:
   serializedVersion: 4
@@ -617,11 +672,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1335133647117959586}
-  - component: {fileID: 8671900640291066756}
-  - component: {fileID: 6535456318668905479}
   - component: {fileID: 3199414731120863509}
   - component: {fileID: 2781813434265997124}
-  - component: {fileID: 5380083527797227971}
+  - component: {fileID: 4826857529286039184}
   - component: {fileID: 6121748318604820582}
   m_Layer: 11
   m_Name: Enemy_Awareness
@@ -647,58 +700,6 @@ Transform:
   m_Father: {fileID: 7637390208198751904}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8671900640291066756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8958689706594800873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  drawGizmos: 1
-  detailedGizmos: 0
-  startEndModifier:
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
-    useRaycasting: 0
-    mask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    useGraphRaycasting: 0
-  traversableTags: -1
-  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  graphMask:
-    value: -1
---- !u!114 &6535456318668905479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8958689706594800873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac13c78ea6ff493391642513fa2be7ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 1833816285702096811}
-  pathStart: {fileID: 9188464269458389347}
-  distanceToNextWaypoint: 1
-  movementSpeed: 80
-  canMoveVertical: 0
-  movementData:
-  - turnAround: 1
-    waitTime: 3
-    endPosition: {x: 22, y: -3.4, z: 0}
-  - turnAround: 0
-    waitTime: 3
-    endPosition: {x: 5.5, y: -4.4, z: 0}
 --- !u!114 &3199414731120863509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,8 +712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6307d408fa8a4291aa1763601a33d7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 1833816285702096811}
-  noticedDistance: 1
   rayMask:
     serializedVersion: 2
     m_Bits: 768
@@ -737,8 +736,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!60 &5380083527797227971
-PolygonCollider2D:
+--- !u!61 &4826857529286039184
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -750,22 +749,19 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 1.5, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 1.4891304}
-    newSize: {x: 3.68, y: 2.74}
-    adaptiveTilingThreshold: 0.5
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 4.5, y: 1.5}
-      - {x: -0.5, y: 0.5}
-      - {x: -0.5, y: -0.5}
-      - {x: 4.5, y: -1.5}
+  serializedVersion: 2
+  m_Size: {x: 4.0000005, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &6121748318604820582
 MonoBehaviour:
   m_ObjectHideFlags: 0

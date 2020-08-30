@@ -1,5 +1,4 @@
 ﻿using Managers;
-using Settings;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +15,7 @@ namespace UI
             btnExit.onClick.AddListener(OnExit);
         }
 
-        private void OnPlay() => GameManager.Instance.LoadScene(Consts.Scenes.LEVEL_1);
+        private void OnPlay() => GameManager.Instance.LoadNextLevel();
 
         private void OnExit()
         {

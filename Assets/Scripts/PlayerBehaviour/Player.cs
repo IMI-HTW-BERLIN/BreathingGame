@@ -4,6 +4,7 @@ using LevelObjects;
 using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 
 namespace PlayerBehaviour
 {
@@ -21,6 +22,7 @@ namespace PlayerBehaviour
 
         [Header("Animation")] [SerializeField] private Animator animator;
         [SerializeField] private GameObject playerGfx;
+        [SerializeField] private float killAnimationDelay;
 
         [Header("Particles")] [SerializeField] private ParticleSystem psSoundWaveRing;
         [SerializeField] private float psLifetimeFactor;
@@ -32,9 +34,9 @@ namespace PlayerBehaviour
         public bool IsHidden { get; private set; }
         public bool IsGrounded { get; private set; }
 
-        private InputActions _inputActions;
+        private InputActions _playerInput;
         private Rigidbody2D _rb;
-        private Hideout _currentHideout;
+        private Interactable _currentInteractable;
 
         private readonly List<Vector2> _emissionPositions = new List<Vector2>();
 
@@ -46,27 +48,29 @@ namespace PlayerBehaviour
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _inputActions = new InputActions();
+            _playerInput = new InputActions();
         }
 
         private void OnEnable()
         {
             BreathingManager.Instance.OnBreathingChange += OnBreathingChange;
 
-            _inputActions.Enable();
-            _inputActions.Interaction.Fire.performed += OnFire;
-            _inputActions.Interaction.Interact.performed += OnInteract;
-            _inputActions.Movement.Jump.performed += OnJump;
+            _playerInput.Enable();
+
+            _playerInput.Interaction.Fire.performed += OnFire;
+            _playerInput.Interaction.Interact.performed += OnInteract;
+            _playerInput.Movement.Jump.performed += OnJump;
         }
 
         private void OnDisable()
         {
             BreathingManager.Instance.OnBreathingChange -= OnBreathingChange;
 
-            _inputActions.Disable();
-            _inputActions.Interaction.Fire.performed -= OnFire;
-            _inputActions.Interaction.Interact.performed -= OnInteract;
-            _inputActions.Movement.Jump.performed -= OnJump;
+            _playerInput.Disable();
+
+            _playerInput.Interaction.Fire.performed -= OnFire;
+            _playerInput.Interaction.Interact.performed -= OnInteract;
+            _playerInput.Movement.Jump.performed -= OnJump;
         }
 
         private void FixedUpdate()
@@ -74,7 +78,7 @@ namespace PlayerBehaviour
             IsGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
             animator.SetBool(AnimatorIsGrounded, IsGrounded);
 
-            float movement = _inputActions.Movement.Move.ReadValue<float>();
+            float movement = _playerInput.Movement.Move.ReadValue<float>();
 
             float velocity = movement * movementSpeed * Time.deltaTime;
             _rb.velocity = new Vector2(velocity, _rb.velocity.y);
@@ -86,31 +90,33 @@ namespace PlayerBehaviour
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.TryGetComponent(out Hideout hideout))
+            if (!other.TryGetComponent(out Interactable interactable))
                 return;
 
-            _currentHideout = hideout;
-            hideout.ShowUI();
+            _currentInteractable = interactable;
+            interactable.ShowUI();
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (!other.TryGetComponent(out Hideout hideout))
+            if (!other.TryGetComponent(out Interactable interactable))
                 return;
 
-            _currentHideout = null;
-            hideout.HideUI();
+            _currentInteractable = null;
+            interactable.HideUI();
         }
 
         public Vector2 GetLastParticlePosition() =>
             _emissionPositions.Count > 0 ? _emissionPositions[0] : (Vector2) transform.position;
 
-        public void DisableMovement() => _inputActions.Movement.Disable();
+        public void DisableMovement() => _playerInput.Movement.Disable();
 
         public void Kill()
         {
-            _inputActions.Disable();
-            animator.SetBool(AnimatorIsDead, true);
+            _playerInput.Disable();
+            StartCoroutine(Coroutines.WaitForSeconds(killAnimationDelay,
+                () => animator.SetBool(AnimatorIsDead, true)));
+
             GameManager.Instance.ShowGameOver();
         }
 
@@ -118,16 +124,17 @@ namespace PlayerBehaviour
         {
             playerGfx.SetActive(false);
             IsHidden = true;
-            _inputActions.Movement.Disable();
+            _playerInput.Movement.Disable();
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(playerLayer), LayerMask.NameToLayer(enemyLayer),
                 true);
         }
 
-        public void ShowPlayer()
+        public void ShowPlayer(bool enableMovement = true)
         {
             playerGfx.SetActive(true);
             IsHidden = false;
-            _inputActions.Movement.Enable();
+            if (enableMovement)
+                _playerInput.Movement.Enable();
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(playerLayer), LayerMask.NameToLayer(enemyLayer),
                 false);
         }
@@ -145,12 +152,10 @@ namespace PlayerBehaviour
 
         private void OnInteract(InputAction.CallbackContext obj)
         {
-            if (!_currentHideout)
+            if (!_currentInteractable)
                 return;
-            if (IsHidden)
-                _currentHideout.UnHide(this);
-            else
-                _currentHideout.Hide(this);
+
+            _currentInteractable.Interact(this);
         }
 
         private void CreateSoundWave(float range)

@@ -8,28 +8,40 @@ namespace Enemies
 {
     public class Enemy : MonoBehaviour
     {
-        [SerializeField] private Rigidbody2D rb;
         [SerializeField] private EnemyUI enemyUI;
         [SerializeField] private EnemyMovement enemyMovement;
         [Header("Awareness")] [SerializeField] private EnemyAwareness enemyAwareness;
         [SerializeField] private float triggerCooldown;
         [SerializeField] private float awarenessTime;
-
-
+        [SerializeField] private float hiddenPlayerNoticeDistance;
         [Header("Animation")] [SerializeField] private Animator animator;
+
+
+        private Rigidbody2D _rb;
         private float _cooldownTime;
         private bool _isAttacking;
         private bool _hasKilled;
+        private bool _foundPlayerWhileHidden;
 
         private static readonly int Speed = Animator.StringToHash("Speed");
         private static readonly int Attack = Animator.StringToHash("Attack");
+
+        protected virtual void Awake() => _rb = GetComponent<Rigidbody2D>();
 
         protected void OnEnable() => enemyAwareness.OnPlayerFound += PlayerFound;
         protected void OnDisable() => enemyAwareness.OnPlayerFound -= PlayerFound;
 
         protected virtual void Update()
         {
-            animator.SetFloat(Speed, Mathf.Abs(rb.velocity.x));
+            animator.SetFloat(Speed, Mathf.Abs(_rb.velocity.x));
+            Player player = GameManager.Instance.Player;
+            if (player.IsHidden && !enemyMovement.PatrolCheckpoints && !_foundPlayerWhileHidden &&
+                Vector2.Distance(player.transform.position, transform.position) <= hiddenPlayerNoticeDistance)
+            {
+                _foundPlayerWhileHidden = true;
+                PlayerFound(player);
+            }
+
             if (_isAttacking && !_hasKilled && enemyMovement.ReachedEndOfPath)
                 AttackPlayer();
         }
@@ -62,7 +74,7 @@ namespace Enemies
         /// <param name="player">The player that was found (only for script reference)</param>
         private void PlayerFound(Player player)
         {
-            if (_isAttacking || player.IsHidden)
+            if (_isAttacking || player.IsHidden && enemyMovement.PatrolCheckpoints)
                 return;
             enemyMovement.PatrolCheckpoints = false;
             StopAllCoroutines();
@@ -72,6 +84,8 @@ namespace Enemies
             {
                 _isAttacking = true;
                 enemyMovement.MoveTo(player.transform.position);
+                if (player.IsHidden)
+                    player.ShowPlayer(false);
             }));
         }
 

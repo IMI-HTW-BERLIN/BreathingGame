@@ -7,14 +7,16 @@ using UnityEngine;
 namespace Enemies
 {
     [RequireComponent(typeof(Seeker))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class EnemyMovement : MonoBehaviour
     {
-        [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Transform pathStart;
         [SerializeField] private float distanceToNextWaypoint;
+        [SerializeField] private Transform graphicsToBeFlipped;
 
         [Header("Movement")] [SerializeField] private float movementSpeed;
         [SerializeField] private bool canMoveVertical;
+        [SerializeField] private bool pingPongPatrolRoute;
 
         [SerializeField] private List<MovementData> movementData;
 
@@ -47,17 +49,24 @@ namespace Enemies
             }
         }
 
+
         private Seeker _seeker;
         private Path _path;
+        private Rigidbody2D _rb;
 
         private int _currentWaypoint;
         private int _currentCheckpoint;
         private bool _reachedEndOfPath;
         private bool _patrolCheckpoints = true;
+        private bool _patrolBackPingPong;
 
         private Vector2 Position => pathStart == null ? transform.position : pathStart.position;
 
-        private void Awake() => _seeker = GetComponent<Seeker>();
+        private void Awake()
+        {
+            _seeker = GetComponent<Seeker>();
+            _rb = GetComponent<Rigidbody2D>();
+        }
 
         private void Start() => StartCoroutine(MoveToNextCheckpoint(movementData[0]));
 
@@ -68,7 +77,8 @@ namespace Enemies
 
             if (_currentWaypoint >= _path.vectorPath.Count)
             {
-                ReachedEndOfPath = true;
+                if (Mathf.Abs(_rb.velocity.x) <= 0.01f)
+                    ReachedEndOfPath = true;
                 return;
             }
 
@@ -79,9 +89,9 @@ namespace Enemies
             if (canMoveVertical)
                 newVelocity = direction * (movementSpeed * Time.deltaTime);
             else
-                newVelocity = new Vector2(Math.Sign(direction.x) * movementSpeed * Time.deltaTime, rb.velocity.y);
+                newVelocity = new Vector2(Math.Sign(direction.x) * movementSpeed * Time.deltaTime, _rb.velocity.y);
 
-            rb.velocity = newVelocity;
+            _rb.velocity = newVelocity;
 
             if (Vector2.Distance(Position, _path.vectorPath[_currentWaypoint]) < distanceToNextWaypoint)
                 _currentWaypoint++;
@@ -99,7 +109,7 @@ namespace Enemies
             if (canMoveVertical || ignoreCanMoveVertical)
                 endPosition = position;
             else
-                endPosition = new Vector2(position.x, rb.position.y);
+                endPosition = new Vector2(position.x, _rb.position.y);
 
             _seeker.StartPath(Position, endPosition, path =>
             {
@@ -111,10 +121,21 @@ namespace Enemies
         private IEnumerator MoveToNextCheckpoint(MovementData data)
         {
             if (data.turnAround)
-                transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
+                graphicsToBeFlipped.localScale = new Vector3(-graphicsToBeFlipped.localScale.x, 1, 1);
             yield return new WaitForSeconds(data.waitTime);
             MoveTo(data.endPosition, true);
-            _currentCheckpoint++;
+            if (pingPongPatrolRoute && _patrolBackPingPong)
+                _currentCheckpoint--;
+            else
+                _currentCheckpoint++;
+
+            if (!pingPongPatrolRoute)
+                yield break;
+
+            if (_currentCheckpoint == movementData.Count - 1)
+                _patrolBackPingPong = true;
+            else if (_currentCheckpoint == 0)
+                _patrolBackPingPong = false;
         }
 
         [Serializable]

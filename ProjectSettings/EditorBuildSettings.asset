@@ -10,8 +10,8 @@ EditorBuildSettings:
     guid: 2570c970aeb60a3408707be29f7cfe39
   - enabled: 1
     path: Assets/Scenes/Levels/Level_1.unity
-    guid: 584ed3de015651a4485ccaf9ef17720d
-  - enabled: 0
-    path: Assets/Scenes/BreathingVisualization.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: 13710db48dfc5eb4db85487474f13d6f
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level_2.unity
+    guid: 9e3cd5c9718cd5c4fb3b4ece622a5945
   m_configObjects: {}

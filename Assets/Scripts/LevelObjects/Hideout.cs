@@ -4,29 +4,29 @@ using Utils;
 
 namespace LevelObjects
 {
-    [RequireComponent(typeof(Collider2D))]
-    public class Hideout : MonoBehaviour
+    public class Hideout : Interactable
     {
-        [SerializeField] private GameObject interactableUI;
         [SerializeField] private Animator animator;
         [SerializeField] private float playerHideDelay;
 
-
+        private bool _playerIsHidden;
         private static readonly int Explode = Animator.StringToHash("Explode");
 
-        public void ShowUI() => interactableUI.SetActive(true);
-        public void HideUI() => interactableUI.SetActive(false);
 
-        public void Hide(Player player)
+        public override void Interact(Player player)
         {
-            animator.SetTrigger(Explode);
-            StartCoroutine(Coroutines.WaitForSeconds(playerHideDelay, player.HidePlayer));
-        }
-
-        public void UnHide(Player player)
-        {
-            animator.SetTrigger(Explode);
-            StartCoroutine(Coroutines.WaitForSeconds(playerHideDelay, player.ShowPlayer));
+            if (_playerIsHidden)
+            {
+                animator.SetTrigger(Explode);
+                StartCoroutine(Coroutines.WaitForSeconds(playerHideDelay, () => player.ShowPlayer()));
+                _playerIsHidden = false;
+            }
+            else
+            {
+                animator.SetTrigger(Explode);
+                StartCoroutine(Coroutines.WaitForSeconds(playerHideDelay, player.HidePlayer));
+                _playerIsHidden = true;
+            }
         }
     }
 }

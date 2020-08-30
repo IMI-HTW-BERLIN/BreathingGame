@@ -1,5 +1,4 @@
 ﻿using Managers;
-using Settings;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +24,6 @@ namespace UI
 #endif
         }
 
-        private void OnRetry() => GameManager.Instance.LoadScene(Consts.Scenes.LEVEL_1);
+        private void OnRetry() => GameManager.Instance.ReloadLevel();
     }
 }
