@@ -79,7 +79,7 @@ namespace Enemies
             enemyMovement.PatrolCheckpoints = false;
             StopAllCoroutines();
             enemyUI.ShowNoticed();
-            player.DisableMovement();
+            player.DisableInput();
             StartCoroutine(Coroutines.WaitUntil(() => player.IsGrounded, () =>
             {
                 _isAttacking = true;

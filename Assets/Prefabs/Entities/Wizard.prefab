@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2917422601317697549}
   - component: {fileID: 393217997206077443}
   - component: {fileID: 5121170592047465899}
-  - component: {fileID: 8971878447083813052}
   - component: {fileID: 8764867860024106773}
+  - component: {fileID: 7746632237727528254}
   m_Layer: 11
   m_Name: Wizard_Awareness
   m_TagString: Untagged
@@ -73,32 +73,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &8971878447083813052
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862174622264528983}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 2, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 5, y: 1.5}
-  m_EdgeRadius: 0
 --- !u!114 &8764867860024106773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +88,35 @@ MonoBehaviour:
   rigidbodyForMovement: {fileID: 5342947199817139414}
   spriteRenderer: {fileID: 0}
   flipGameObject: 1
+--- !u!60 &7746632237727528254
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862174622264528983}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 3.75, y: 1.5}
+      - {x: -0.5, y: 0.5}
+      - {x: -0.5, y: -0.5}
+      - {x: 3.75, y: -1.5}
 --- !u!1 &5669942894276288127
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +412,7 @@ MonoBehaviour:
   enemyMovement: {fileID: 4106334386504286149}
   enemyAwareness: {fileID: 393217997206077443}
   triggerCooldown: 2
-  awarenessTime: 8
+  awarenessTime: 5
   hiddenPlayerNoticeDistance: 1.5
   animator: {fileID: 5669942895249107460}
 --- !u!114 &4106334386504286149

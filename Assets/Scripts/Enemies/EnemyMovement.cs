@@ -100,17 +100,16 @@ namespace Enemies
         public void MoveTo(Vector2 position, bool ignoreCanMoveVertical = false)
         {
             if (!_seeker.IsDone())
-            {
                 _seeker.CancelCurrentPathRequest();
-                _currentWaypoint = 0;
-            }
 
+            _currentWaypoint = 0;
             Vector2 endPosition;
             if (canMoveVertical || ignoreCanMoveVertical)
                 endPosition = position;
             else
                 endPosition = new Vector2(position.x, _rb.position.y);
 
+            ReachedEndOfPath = false;
             _seeker.StartPath(Position, endPosition, path =>
             {
                 _path = path;

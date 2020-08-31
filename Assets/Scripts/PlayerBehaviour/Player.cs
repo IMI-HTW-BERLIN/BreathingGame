@@ -109,7 +109,7 @@ namespace PlayerBehaviour
         public Vector2 GetLastParticlePosition() =>
             _emissionPositions.Count > 0 ? _emissionPositions[0] : (Vector2) transform.position;
 
-        public void DisableMovement() => _playerInput.Movement.Disable();
+        public void DisableInput() => _playerInput.Disable();
 
         public void Kill()
         {
