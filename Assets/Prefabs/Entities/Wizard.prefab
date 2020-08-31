@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2917422601317697549}
   - component: {fileID: 393217997206077443}
   - component: {fileID: 5121170592047465899}
-  - component: {fileID: 8764867860024106773}
   - component: {fileID: 8971878447083813052}
+  - component: {fileID: 8764867860024106773}
   m_Layer: 11
   m_Name: Wizard_Awareness
   m_TagString: Untagged
@@ -73,21 +73,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8764867860024106773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862174622264528983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7568c2c28d67423489f963d6fc27b0db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigidbodyForMovement: {fileID: 5121170592047465899}
-  spriteRenderer: {fileID: 0}
-  flipGameObject: 1
 --- !u!61 &8971878447083813052
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -114,6 +99,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &8764867860024106773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862174622264528983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7568c2c28d67423489f963d6fc27b0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbodyForMovement: {fileID: 5342947199817139414}
+  spriteRenderer: {fileID: 0}
+  flipGameObject: 1
 --- !u!1 &5669942894276288127
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,7 +690,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6045287897426848267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.049999714, y: 0.35000014, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5669942894853198079}
