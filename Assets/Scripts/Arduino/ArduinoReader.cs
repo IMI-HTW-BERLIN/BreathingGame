@@ -9,25 +9,20 @@ namespace Arduino
 {
     public class ArduinoReader : MonoBehaviour
     {
-        [SerializeField] private string portName;
         [SerializeField] private int baudRate = 9600;
 
         private SerialPort _serialPort;
 
         private static readonly char[] Separator = {'\r', '\n'};
 
-        private void Awake()
+        private void OnDisable() => _serialPort?.Close();
+
+        public void StartReading(string portName)
         {
             _serialPort = new SerialPort(portName, baudRate);
-        }
-
-        private void OnEnable()
-        {
             _serialPort.Open();
             StartCoroutine(ReadNextLine());
         }
-
-        private void OnDisable() => _serialPort.Close();
 
         [SuppressMessage("ReSharper", "FunctionRecursiveOnAllPaths")]
         private IEnumerator ReadNextLine()

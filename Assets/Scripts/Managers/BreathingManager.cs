@@ -1,4 +1,5 @@
-﻿using Managers.Abstract;
+﻿using Arduino;
+using Managers.Abstract;
 using UnityEngine;
 using Utils;
 
@@ -6,6 +7,8 @@ namespace Managers
 {
     public class BreathingManager : Singleton<BreathingManager>
     {
+        [SerializeField] private ArduinoReader arduinoReader;
+
         [Header("Breathing Settings")] [SerializeField]
         private float deltaDifferenceForBreathing;
 
@@ -47,6 +50,8 @@ namespace Managers
             _lastTemperature = temperature;
             OnTemperatureRead?.Invoke(temperature);
         }
+
+        public void StartArduinoReading(string arduinoPort) => arduinoReader.StartReading(arduinoPort);
 
         private void CheckBreathingType()
         {
