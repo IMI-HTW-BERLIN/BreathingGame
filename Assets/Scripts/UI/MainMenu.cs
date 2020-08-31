@@ -8,6 +8,7 @@ namespace UI
     public class MainMenu : MonoBehaviour
     {
         [SerializeField] private Button btnPlay;
+        [SerializeField] private Button btnPlayWithArduino;
         [SerializeField] private TMP_InputField inputArduinoPortName;
         [SerializeField] private Button btnExit;
 
@@ -15,6 +16,18 @@ namespace UI
         {
             btnPlay.onClick.AddListener(OnPlay);
             btnExit.onClick.AddListener(OnExit);
+            btnPlayWithArduino.onClick.AddListener(OnPlayWithArduino);
+        }
+
+        private void OnPlayWithArduino()
+        {
+            btnPlayWithArduino.gameObject.SetActive(false);
+            inputArduinoPortName.gameObject.SetActive(true);
+            inputArduinoPortName.onSubmit.AddListener(input =>
+            {
+                BreathingManager.Instance.StartArduinoReading(input);
+                GameManager.Instance.LoadNextLevel();
+            });
         }
 
         private void OnPlay()
